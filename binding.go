@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func Form(context *iris.Context, formStruct interface{}, ifacePtr ...interface{}) (interface{}, int, Errors) {
+func Form(context *iris.Context, formStruct interface{}, ifacePtr ...interface{}) (interface{}, Errors) {
 	req := context.Request
 	ensureNotPointer(formStruct)
 	formStructs := reflect.New(reflect.TypeOf(formStruct))
@@ -21,7 +21,7 @@ func Form(context *iris.Context, formStruct interface{}, ifacePtr ...interface{}
 	}
 	mapForm(formStructs, req.Form, nil, errors)
 	Validate(context, formStructs)
-	return formStructs.Elem().Interface(), errors.Len(), errors
+	return formStructs.Elem().Interface(), errors
 }
 
 func Validate(context *iris.Context, obj interface{}) {
