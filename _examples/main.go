@@ -29,11 +29,7 @@ func main() {
 }
 
 func UserAdd(ctx *iris.Context) {
-	userInterface, errline, err := binding.Form(ctx, User{})
-	if errline > 0 {
-		//errmsg
-		fmt.Println("errors:", err)
-	}
+	userInterface, _ := binding.Form(ctx, User{})
 	user := userInterface.(User)
 	fmt.Printf("The Form value is %+v\n", user)
 }
